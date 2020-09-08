@@ -1,0 +1,11 @@
+node_modules
+npm-debug.log
+DATA
+.env.example
+.gitignore
+.hgignore
+DEVELOPER_README.md
+dump.rdb
+ERROR.txt
+LICENSE.md
+README.md

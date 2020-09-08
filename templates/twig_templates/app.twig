@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+    <html>
+    <head>
+        {% include 'includes/meta.twig' %}
+    </head>
+    <body class="menu-position-side menu-side-left full-screen with-content-panel">
+    <div class="all-wrapper with-side-panel solid-bg-all">
+
+
+        <div class="layout-w">
+            <!--------------------
+            START - Mobile Menu
+            -------------------->
+            {% include 'includes/mobile_menu.twig' %}
+            <!--------------------
+             END - Mobile Menu
+             --------------------><!--------------------
+        START - Main Menu
+        -------------------->
+
+            {% include 'includes/desktop_menu.twig' %}
+
+            <!--------------------
+                END - Main Menu
+                -------------------->
+            <div class="content-w">
+                <!--------------------
+                START - Top Bar
+                -------------------->
+                <div class="top-bar color-scheme-transparent">
+                    <!--------------------
+                    START - Top Menu Controls
+                    -------------------->
+                    <div class="top-menu-controls">
+                        <div class="">
+                            <!--                        <input placeholder="Start typing to search..." type="text">-->
+                          <a href="{{ paths.profile }}">  ifihear@gmail.com</a>
+
+                        </div>
+                        <!--------------------
+                      START - Settings Link in secondary top menu
+                      -------------------->
+
+                        <!--------------------
+                        END - Settings Link in secondary top menu
+                        --------------------><!--------------------
+              START - User avatar and menu in secondary top menu
+              -------------------->
+                        {% include 'includes/avater.twig' %}
+
+                        <!--------------------
+                        END - User avatar and menu in secondary top menu
+                        -------------------->
+                    </div>
+                    <!--------------------
+                    END - Top Menu Controls
+                    -------------------->
+                </div>
+                <!--------------------
+                END - Top Bar
+                -------------------->
+
+                <div class="content-i">
+
+                    {% block content %}{% endblock %}
+
+                    <!--------------------
+                       START - Sidebar
+                       -------------------->
+
+                    {% include 'includes/right.twig' %}
+
+                    <!--------------------
+                    END - Sidebar
+                    -------------------->
+                </div>
+            </div>
+        </div>
+        <div class="display-type"></div>
+    </div>
+    {% include 'includes/footer.twig' %}
+    </body>
+    </html>

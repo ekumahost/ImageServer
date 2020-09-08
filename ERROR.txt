@@ -1,0 +1,3 @@
+#ERROR CODE DOCUMENTATION
+-- please expose these error codes to app info api endpoint
+0001A : request middleware function passed in app does not exist in request middleware lists: this is a programming error

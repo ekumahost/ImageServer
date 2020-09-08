@@ -1,0 +1,35 @@
+
+
+
+<div class="all-wrapper menu-side with-pattern">
+    <div class="auth-box-w">
+
+
+        <h4 class="auth-header"><br>
+           IMAGE SERVER
+        </h4>
+
+        <div style="padding: 20px" class="form-group">
+
+            <h4>Free Image Host</h4>
+        <i> Unlimited image cdn free APi, unlimited files, size and bandwidth, powered by ethereum blockchain.
+        </i>
+        </div>
+
+
+        <form id="UploadImageForm" action="{{ paths.upload_file }}" enctype="multipart/form-data" method="post">
+            <div class="form-group">
+                <label for="">IMAGE FILE</label><input id="image_file" name="file" class="form-control" placeholder="must be an image file" type="file">
+                <div class="pre-icon os-icon os-icon-file"></div>
+            </div>
+
+            <div class="buttons-w">
+                <button id="LoginFormButton" type="submit" class="btn btn-primary uploadButton">Get Image link </button>
+
+                <hr>
+                |
+                <a target="_blank" href="{{ site_url }}/swagger/do/index.html"> API </a>
+            </div>
+        </form>
+    </div>
+</div>

@@ -1,0 +1,7 @@
+version: '3'
+services:
+  xend_inventory:
+    restart: always
+    build: .
+    ports:
+      - '3000:3000'
