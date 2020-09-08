@@ -32,7 +32,7 @@ module.exports =  {
         if (mime.split('/')[0] !== 'image') {
             // fs.unlink(req.file.path);
             fs.unlink(req.file.path, function (err) {
-                if (err) throw err;
+              //  if (err) throw err;
                 // if no error, file has been deleted successfully
                 console.log('File deleted!');
             });
@@ -46,7 +46,7 @@ module.exports =  {
         if (fileSize > MAX_SIZE) {
            //  fs.unlink(req.file.path);
             fs.unlink(req.file.path, function (err) {
-                if (err) throw err;
+               // if (err) throw err;
                 // if no error, file has been deleted successfully
                 console.log('File deleted!');
             });
@@ -56,13 +56,13 @@ module.exports =  {
 
 
         const data = fs.readFileSync(req.file.path);
-             console.log("DATA DTA", data);
+          //   console.log("DATA DTA", data);
 
 
        return ipfs.add(data, (err, files) => {
             // fs.unlink(req.file.path);
            fs.unlink(req.file.path, function (err) {
-               if (err) throw err;
+               //if (err) throw err;
                // if no error, file has been deleted successfully
                console.log('File deleted!');
            });
@@ -86,6 +86,7 @@ module.exports =  {
 
     postUploadImageFromUrl(req, res){
 
+        console.log(req.file);
 
         if(!req.body.image_url){
             response.errorResponse(res, 200, null, "please provide valid image url", '');

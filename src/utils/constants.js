@@ -1,7 +1,7 @@
 module.exports = Object.freeze({ //Iteration over frozen object is no longer slow
 
-    PROTOCOL: (process.env.NODE_ENV === "development")  ? 'http://' : 'http://',
-    SERVER_NAME: 'localhost:11200/',
+    PROTOCOL: (process.env.NODE_ENV === "development")  ? 'http://' : 'https://',
+    SERVER_NAME: 'imageserver.link/',
     //SERVER_NAME: 'localhost:11200/',
 
     APP_VERSION : '1.0.0',

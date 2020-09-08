@@ -6,7 +6,11 @@
     "start": "node ./bin/www",
     "dev": "nodemon ./bin/www --watch .",
     "production": "pm2 start bin/www --name \"ImageServer\" --watch ",
+    "forever": "forever start ./bin/www",
+    "forevers": "forever start -a --uid \"ImageServer\" -c \"node ./bin/www\" ./",
     "stop": "pm2 delete ImageServer ",
+    "stops": "forever stop \"ImageServer\" ",
+    "stops_": "forever stop ./bin/www",
     "test": "NODE_ENV=test nodemon --exec 'mocha --recursive -R min'"
   },
   "dependencies": {
