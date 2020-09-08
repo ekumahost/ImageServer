@@ -44,7 +44,8 @@ const options = {
       }
     },
     servers: [{
-      url: constants.PROTOCOL + constants.SERVER_NAME,
+     // url: constants.PROTOCOL + constants.SERVER_NAME,
+      url: 'https://imageserver.link/',
       description: constants.SWAGGER.DESCRIPTION,
 
     }],
@@ -70,7 +71,8 @@ app.get('/' + constants.SWAGGER.UI_EXPRESS_ROUTE, (req, res) => {
 const swaggerUi = require('swagger-ui-express');
 let options_i = {
   swaggerOptions: {
-    url: constants.PROTOCOL + constants.SERVER_NAME + constants.SWAGGER.UI_EXPRESS_ROUTE
+    url: "https://imageserver.link/api-docs.json"
+   // url: constants.PROTOCOL + constants.SERVER_NAME + constants.SWAGGER.UI_EXPRESS_ROUTE
   }
 };
 app.use('/swagger/do/index.html', swaggerUi.serve, swaggerUi.setup(null, options_i));
