@@ -75,7 +75,7 @@ let options_i = {
    // url: constants.PROTOCOL + constants.SERVER_NAME + constants.SWAGGER.UI_EXPRESS_ROUTE
   }
 };
-app.use('/swagger/do/index.html', swaggerUi.serve, swaggerUi.setup(null, options_i));
+app.use('/swagger/does/index.html', swaggerUi.serve, swaggerUi.setup(null, options_i));
 
 
 // to use Cookie Session
