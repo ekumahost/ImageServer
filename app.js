@@ -6,7 +6,9 @@ const cookieSession = require('cookie-session');
 const bodyParser = require('body-parser');
 const constants = require('./src/utils/constants');
 const compression = require('compression');
+const cors = require('cors');
 
+// https://medium.com/coinmonks/host-your-own-website-for-free-bf7c10d61e56
 const paths = require('./src/routes/paths/paths');
   require('dotenv').config();
 const index = require('./src/routes/index');
@@ -23,6 +25,7 @@ twing = new TwingEnvironment(loader, {
 });
 
 const app = express();
+app.use(cors());
 twing.addGlobal('paths', paths);
 
 // auto security middleware/ config

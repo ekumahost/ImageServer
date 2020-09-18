@@ -23,6 +23,55 @@ module.exports =  {
     postUploadSingleImage(req, res){
 
 
+/*
+
+      // pprocess github uplaod first
+
+
+        var GitHub = require('github-api');
+
+// basic auth
+        var gh = new GitHub({
+            username: 'ekumahost',
+            password: 'ahsj768GGVVNNBV'
+            /!* also acceptable:
+               token: 'MY_OAUTH_TOKEN'
+             *!/
+        });
+
+        let gist = gh.getGist(); // not a gist yet
+        gist.create({
+            public: true,
+            description: 'My first gist',
+            files: {
+                "1599596784191.jpeg": {
+                    content: "Aren't gists great!"
+                }
+            }
+        }).then(function({data}) {
+            // Promises!
+            let createdGist = data;
+            return gist.read();
+        }).then(function({data}) {
+            let retrievedGist = data;
+            // do interesting things
+        });
+
+*/
+
+        // end github things..
+
+
+
+
+
+
+
+
+
+
+
+
         // some validations
       if (!req.file) {
           response.errorResponse(res, 200, null, "No image file selected", '');
