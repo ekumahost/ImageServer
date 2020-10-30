@@ -10,7 +10,7 @@ describe("The image app", () => {
             .get('/api/info')
             .end((err, response) =>{
                 console.log(response);
-                assert(1===1);
+                assert(1===1); // fake test
                 done();
             })
 

@@ -1,18 +1,14 @@
 const response = require('../../action/response');
-const md5 = require('md5');
 const fs = require('fs');
-
 const path = require('path');
-
-const ipfsAPI = require('ipfs-api');
 //const multer = require('multer');
-const dataUriToBuffer = require('data-uri-to-buffer');
-//const imageToURI = require('image-to-data-uri');
 
 const MAX_SIZE = 52428800;
 
-const ipfs = ipfsAPI({
-    //host: '127.0.0.1',
+const IpfsHttpClient = require('ipfs-http-client');
+const { globSource, urlSource } = IpfsHttpClient;
+//const ipfs = IpfsHttpClient();
+const ipfs = IpfsHttpClient({
     host: 'ipfs.infura.io',
     port: 5001,
     protocol: 'https'
@@ -20,56 +16,7 @@ const ipfs = ipfsAPI({
 
 module.exports =  {
 
-    postUploadSingleImage(req, res){
-
-
-/*
-
-      // pprocess github uplaod first
-
-
-        var GitHub = require('github-api');
-
-// basic auth
-        var gh = new GitHub({
-            username: 'ekumahost',
-            password: 'ahsj768GGVVNNBV'
-            /!* also acceptable:
-               token: 'MY_OAUTH_TOKEN'
-             *!/
-        });
-
-        let gist = gh.getGist(); // not a gist yet
-        gist.create({
-            public: true,
-            description: 'My first gist',
-            files: {
-                "1599596784191.jpeg": {
-                    content: "Aren't gists great!"
-                }
-            }
-        }).then(function({data}) {
-            // Promises!
-            let createdGist = data;
-            return gist.read();
-        }).then(function({data}) {
-            let retrievedGist = data;
-            // do interesting things
-        });
-
-*/
-
-        // end github things..
-
-
-
-
-
-
-
-
-
-
+    async postUploadSingleImage(req, res){
 
 
         // some validations
@@ -104,10 +51,8 @@ module.exports =  {
         }
 
 
-        const data = fs.readFileSync(req.file.path);
+   /*     const data = fs.readFileSync(req.file.path);
           //   console.log("DATA DTA", data);
-
-
        return ipfs.add(data, (err, files) => {
             // fs.unlink(req.file.path);
            fs.unlink(req.file.path, function (err) {
@@ -115,6 +60,7 @@ module.exports =  {
                // if no error, file has been deleted successfully
                console.log('File deleted!');
            });
+
            if (files) {
 
                 let output = {
@@ -129,55 +75,58 @@ module.exports =  {
                 response.errorResponse(res, 200, null, "Something is not right, try again later...", '');
             }
        });
+*/
 
+        try {
+            // push the file to IPFS
+            const file = await ipfs.add(globSource(req.file.path));
+            let imageFile = (file.cid).toString();
+            let output = {
+               // image_url: 'https://ipfs.io/ipfs/' + imageFile
+                image_url: 'https://cdn.imageserver.link/ipfs/' + imageFile
+            };
 
-    },
+            response.successResponse(res, output, "image uploaded", null);
 
-    postUploadImageFromUrl(req, res){
-
-        console.log(req.file);
-
-        if(!req.body.image_url){
-            response.errorResponse(res, 200, null, "please provide valid image url", '');
+        }catch (e) {
+            console.log(e);
+            response.errorResponse(res, 200, null, "Something is wrong, try again later", '');
 
         }
 
-        const request = require('request-promise-native');
+    },
 
-        let jpgDataUrlPrefix = 'data:image/png;base64,';
-        let imageUrl         = req.body.image_url;
-        request({
-            url: imageUrl,
-            method: 'GET',
-            encoding: null // This is actually important, or the image string will be encoded to the default encoding
-        })
-            .then(result => {
-                let imageBuffer  = Buffer.from(result);
-                let imageBase64  = imageBuffer.toString('base64');
-                let imageDataUrl = jpgDataUrlPrefix+imageBase64;
+    async postUploadImageFromUrl(req, res){
 
-                const data = dataUriToBuffer(imageDataUrl);
+        console.log(req.body);
+        console.log(req.params);
 
-                return ipfs.add(data, (err, files) => {
-
-                    if (files) {
-
-                        let output = {
-                            image_url: 'https://ipfs.io/ipfs/'+files[0].hash
-                        };
-
-                        response.successResponse(res, output, "Image uploaded", null);
+        if(!req.body.image_url){
+            response.errorResponse(res, 200, null, "please provide valid image url; this test may not also work from swagger use postman", '');
+        }else {
 
 
-                    }else {
-                        console.log(err);
-                        response.errorResponse(res, 200, null, "Something is not right, try again later...", '');
-                    }
-                });
+            try {
 
-            });
+                // const { urlSource } = IpfsHttpClient;
+                const file = await ipfs.add(urlSource(req.body.image_url));
+                let imageFile = (file.cid).toString();
 
+                let output = {
+                    image_url: 'https://cdn.imageserver.link/ipfs/' + imageFile,
+                    ipfs_url: 'https://ipfs.io/ipfs/' + imageFile,
+                    ipfs_hash: imageFile
+                };
 
+                response.successResponse(res, output, "image uploaded", null);
+
+            } catch (e) {
+                console.log(e);
+                response.errorResponse(res, 200, null, "Something is wrong, try again later", '');
+
+            }
+
+        }
 
     },
 
@@ -185,13 +134,19 @@ module.exports =  {
     postUploadImageFromBase(req, res){
 
 
-        if(!req.body.image_uri){
-            response.errorResponse(res, 200, null, "please provide valid image uri", '');
-
-        }
 
 
-        const data = dataUriToBuffer(req.body.image_uri);
+        response.errorResponse(res, 200, null, "maintenance in progress please use image url", '');
+
+
+
+        /*    if(!req.body.image_uri){
+                response.errorResponse(res, 200, null, "please provide valid image uri, this test may not work from swagger", '');
+
+            }*/
+
+
+      /*  const data = dataUriToBuffer(req.body.image_uri);
         return ipfs.add(data, (err, files) => {
 
             if (files) {
@@ -206,7 +161,7 @@ module.exports =  {
                 console.log(err);
                 response.errorResponse(res, 200, null, "Something is not right, try again later...", '');
             }
-        });
+        });*/
 
 
     },
