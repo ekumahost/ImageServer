@@ -1,2 +1,4 @@
 
-nobody is licence to use this script except the owners.
+ImageServer License
+
+Don’t believe, don't blink, don’t fear, don’t ask.
